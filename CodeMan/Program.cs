@@ -12,7 +12,14 @@ namespace CodeMan
         static void Main(string[] args)
         {
             // im crazy but maybe I will start with python
-            TempPythonMethod(); // works so far
+            var sourcePy = "def doSomething(stuff):\n" +
+                           "     print stuff\n" +
+                           "helloWorldString = 'Hello World!'\n" +
+                           "print helloWorldString\n" +
+                           "print externalString\n" +
+                           "doSomething('things')";
+
+            TempPythonMethod(new Models.Code { Source = sourcePy }); // works so far
             // why not c++ and c
 
             // got c++ done why not java with c++ wrapper lmao
@@ -29,18 +36,11 @@ namespace CodeMan
         }
 
         // test python method
-        public static void TempPythonMethod()
+        public static void TempPythonMethod(Models.Code code)
         {
             // create python engine and set script
             Microsoft.Scripting.Hosting.ScriptEngine pythonEngine = IronPython.Hosting.Python.CreateEngine();
-            Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonEngine.CreateScriptSourceFromString(
-                "def doSomething(stuff):\n" +
-                "     print stuff\n" +
-                "helloWorldString = 'Hello World!'\n" +
-                "print helloWorldString\n" +
-                "print externalString\n" +
-                "doSomething('things')"
-                );
+            Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonEngine.CreateScriptSourceFromString(code.Source);
 
             // init scope and object operations
             Microsoft.Scripting.Hosting.ScriptScope scope = pythonEngine.CreateScope();
