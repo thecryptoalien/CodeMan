@@ -36,6 +36,15 @@ namespace CodeMan
             Console.WriteLine("CodeMan - Python Tested...");
             Console.WriteLine();
 
+            // C# is next very integral to make some stuff work going forward
+            Console.WriteLine("CodeMan - Next Language...");
+            Console.WriteLine("Getting C# Sample");
+            Console.WriteLine();
+            string sourceCs = File.ReadAllText(@"TestCode\TestCsharp.cs");
+            Console.WriteLine(sourceCs);
+            Console.WriteLine();
+
+
             // why not c++ and c
 
             // got c++ done why not java with c++ wrapper lmao

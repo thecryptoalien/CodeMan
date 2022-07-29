@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>CodeMan.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CodeManLib">
       <HintPath>..\CodeManLib\bin\Debug\CodeManLib.dll</HintPath>
@@ -51,6 +54,9 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="TestCode\TestCsharp.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

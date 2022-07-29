@@ -50,7 +50,7 @@ namespace CodeManLib.Modules
             ObjectOperations ops = pythonEngine.CreateOperations();
 
             // set var from c#
-            scope.SetVariable("externalString", "CodeMan here...");
+            scope.SetVariable("externalString", "Hello World, from CodeMan!");
 
             // execute script
             pythonScript.Execute(scope);
@@ -58,7 +58,7 @@ namespace CodeManLib.Modules
             // get function from scope
             var f = scope.GetVariable("doSomething");
             // call python method again from c#
-            ops.CreateInstance(f, new object[1] { "Junky" });
+            ops.CreateInstance(f, new object[1] { "External Call to Function" });
             //var __func__ = ops.GetMember(pythonScript, "doSomething"); // for class functions?? for reflection
 
             Console.WriteLine();
