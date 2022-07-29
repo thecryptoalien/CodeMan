@@ -4,4 +4,4 @@ def doSomething(stuff):
 helloWorldString = 'Hello World, from Python!'
 print helloWorldString
 print externalString
-doSomething('Internal Call From Function')
+doSomething('Internal Call to Function')

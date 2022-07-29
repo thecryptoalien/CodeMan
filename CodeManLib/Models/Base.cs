@@ -50,7 +50,10 @@ namespace CodeManLib.Models
         fortran, // Fortran - Well why not
         lisp, // Lisp - Cause Eric suggested it
         cobol, // COBOL - I think I may be loosing it...
-        java // Java - Coffee sucks but I don't mind the code
+        java, // Java - Coffee sucks but I don't mind the code
+        prolog, // Prolog - Eric says it's the best
+        php, // Php - Casue I can, and I like it
+        matlab // MATLAB - A Bradman suggestion
     }
 
 }
