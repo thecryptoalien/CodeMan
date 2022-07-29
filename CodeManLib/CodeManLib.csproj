@@ -64,7 +64,7 @@
   <ItemGroup>
     <Compile Include="Models\Base.cs" />
     <Compile Include="Modules\PythonExecution.cs" />
-    <Compile Include="Modules\Python.cs" />
+    <Compile Include="Modules\PythonReflection.cs" />
     <Compile Include="Modules\ExecutionTemplate.cs" />
     <Compile Include="Modules\ReflectionTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
