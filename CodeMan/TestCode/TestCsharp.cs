@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Test C# source code
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace TestCode
         {
             Console.WriteLine("Hello World, from C#!");
             Console.WriteLine(externalVar);
-            DoStuff("Internal call to method");
+            DoStuff("Internal Call to method");
         }
 
         public static void DoStuff(string text)

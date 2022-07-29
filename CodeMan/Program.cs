@@ -16,34 +16,11 @@ namespace CodeMan
         {
             // im crazy but maybe I will start with python
             Console.WriteLine("CodeMan - Started...");
-            Console.WriteLine("Getting Python Sample");
-            Console.WriteLine();
-            string sourcePy = File.ReadAllText(@"TestCode\TestPython.py");
-            Console.WriteLine(sourcePy);
-            Console.WriteLine();
-            // init code object for testing
-            Console.WriteLine("Creating Code Object for test execution");
-            Code code = new Code { Source = sourcePy };
-            // use using to execute code
-            Console.WriteLine("Executing Python Sample");
-            using (PythonExecution exePy = new PythonExecution(code))
-            {
-                Console.WriteLine();
-                // do the thing 
-                exePy.ExecuteCode();
-            }
-            Console.WriteLine();
-            Console.WriteLine("CodeMan - Python Tested...");
-            Console.WriteLine();
+            TestPython();
 
             // C# is next very integral to make some stuff work going forward
             Console.WriteLine("CodeMan - Next Language...");
-            Console.WriteLine("Getting C# Sample");
-            Console.WriteLine();
-            string sourceCs = File.ReadAllText(@"TestCode\TestCsharp.cs");
-            Console.WriteLine(sourceCs);
-            Console.WriteLine();
-
+            TestCsharp();
 
             // why not c++ and c
 
@@ -58,6 +35,54 @@ namespace CodeMan
 
             // hold up key
             Console.ReadKey();
-        }        
+        }    
+        
+        // Test the python code yo
+        public static void TestPython()
+        {
+            Console.WriteLine("Getting Python Sample");
+            Console.WriteLine();
+            string sourcePy = File.ReadAllText(@"TestCode\TestPython.py");
+            Console.WriteLine(sourcePy);
+            Console.WriteLine();
+            // init code object for testing
+            Console.WriteLine("Creating Code Object for test Python execution");
+            Code pyCode = new Code { Source = sourcePy };
+            // use using to execute code
+            Console.WriteLine("Executing Python Sample");
+            using (PythonExecution exePy = new PythonExecution(pyCode))
+            {
+                Console.WriteLine();
+                // do the thing 
+                exePy.ExecuteCode();
+            }
+            Console.WriteLine();
+            Console.WriteLine("CodeMan - Python Tested...");
+            Console.WriteLine();
+        }
+
+        public static void TestCsharp()
+        {
+            Console.WriteLine("Getting C# Sample");
+            Console.WriteLine();
+            string sourceCs = File.ReadAllText(@"TestCode\TestCsharp.cs");
+            Console.WriteLine(sourceCs);
+            Console.WriteLine();
+            // init code object for testing
+            Console.WriteLine("Creating Code Object for test C# execution");
+            Code cScode = new Code { Source = sourceCs };
+            // use using to execute code
+            Console.WriteLine("Executing C# Sample");
+            using (CSharpExecution exeCs = new CSharpExecution(cScode))
+            {
+                Console.WriteLine();
+                // do the thing 
+                exeCs.ExecuteCode();
+            }
+            Console.WriteLine();
+            Console.WriteLine("CodeMan - C# Tested...");
+            Console.WriteLine();
+        }
+
     }
 }
