@@ -1,6 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using CodeManLib.Models;
+using CodeManLib.Modules;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,14 +15,27 @@ namespace CodeMan
         static void Main(string[] args)
         {
             // im crazy but maybe I will start with python
-            var sourcePy = "def doSomething(stuff):\n" +
-                           "     print stuff\n" +
-                           "helloWorldString = 'Hello World!'\n" +
-                           "print helloWorldString\n" +
-                           "print externalString\n" +
-                           "doSomething('things')";
+            Console.WriteLine("CodeMan - Started...");
+            Console.WriteLine("Getting Python Sample");
+            Console.WriteLine();
+            string sourcePy = File.ReadAllText(@"TestCode\TestPython.py");
+            Console.WriteLine(sourcePy);
+            Console.WriteLine();
+            // init code object for testing
+            Console.WriteLine("Creating Code Object for test execution");
+            Code code = new Code { Source = sourcePy };
+            // use using to execute code
+            Console.WriteLine("Executing Python Sample");
+            using (PythonExecution exePy = new PythonExecution(code))
+            {
+                Console.WriteLine();
+                // do the thing 
+                exePy.ExecuteCode();
+            }
+            Console.WriteLine();
+            Console.WriteLine("CodeMan - Python Tested...");
+            Console.WriteLine();
 
-            TempPythonMethod(new Models.Code { Source = sourcePy }); // works so far
             // why not c++ and c
 
             // got c++ done why not java with c++ wrapper lmao
@@ -33,45 +49,6 @@ namespace CodeMan
 
             // hold up key
             Console.ReadKey();
-        }
-
-        // test python method
-        public static void TempPythonMethod(Models.Code code)
-        {
-            // create python engine and set script
-            Microsoft.Scripting.Hosting.ScriptEngine pythonEngine = IronPython.Hosting.Python.CreateEngine();
-            Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonEngine.CreateScriptSourceFromString(code.Source);
-
-            // init scope and object operations
-            Microsoft.Scripting.Hosting.ScriptScope scope = pythonEngine.CreateScope();
-            Microsoft.Scripting.Hosting.ObjectOperations ops = pythonEngine.CreateOperations();
-
-            // set var from c#
-            scope.SetVariable("externalString", "CodeMan here...");
-
-            // execute script
-            pythonScript.Execute(scope);
-
-            // get function from scope
-            var f = scope.GetVariable("doSomething");
-            // call python method again from c#
-            ops.CreateInstance(f, new object[1] { "Junky" });
-            //var __func__ = ops.GetMember(f, "__func__"); // for class functions?? for reflection
-
-            System.Console.Out.WriteLine();
-            System.Console.Out.WriteLine("Variables in the scope:");            
-            System.Console.Out.WriteLine();
-
-            // get list of vars
-            var pyhtonVars = scope.GetItems();
-
-            foreach(KeyValuePair<string,dynamic> keyPair in pyhtonVars)
-            {
-                System.Console.Out.WriteLine(keyPair.Key + " : " + keyPair.Value);
-            }
-            
-
-            
-        }
+        }        
     }
 }
