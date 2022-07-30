@@ -1,8 +1,11 @@
 ﻿using CodeManLib.Helpers;
 using CodeManLib.Models;
 using CodeManLib.Modules;
+using Microsoft.JScript;
 using System;
+using System.CodeDom.Compiler;
 using System.IO;
+using System.Reflection;
 
 namespace CodeMan
 {
@@ -33,6 +36,11 @@ namespace CodeMan
             // Added VisualBasic cause compiler available 
             GenericHelp.DebugBox("Testing VisualBasic...", true, ConsoleColor.Blue);
             TestVb();
+
+            // Added JavaScript cause compiler available 
+            GenericHelp.DebugBox("Testing JavaScript...", true, ConsoleColor.Blue);
+            TestJs();
+
             // why not c++ and c
 
             // got c++ done why not java with c++ wrapper lmao
@@ -102,5 +110,60 @@ namespace CodeMan
             }
             GenericHelp.DebugBox("VisualBasic Tested...", true, ConsoleColor.Green);
         }
+
+        public static void TestJs()
+        {
+            GenericHelp.DebugBox("Getting JavaScript Sample", true, ConsoleColor.Blue);
+            string sourceJs = File.ReadAllText(@"TestCode\TestJavaScript.js");
+            GenericHelp.DebugBox("\n" + sourceJs, true, ConsoleColor.Green);
+            //// init code object for testing
+            //GenericHelp.DebugBox("Creating Code Object for test VisualBasic execution", false, ConsoleColor.Blue);
+            //Code vBcode = new Code { Source = sourceVb };
+            //// use using to execute code
+            //GenericHelp.DebugBox("Executing VisualBasic Sample", true, ConsoleColor.Blue);
+            //using (VbExecution exeCs = new VbExecution(vBcode))
+            //{
+            //    // do the thing 
+            //    exeCs.ExecuteCode();
+            //}
+
+            // for testing
+            CodeDomProvider codeProvider = CodeDomProvider.CreateProvider("JavaScript");
+            //var codeCompiler = codeProvider.CreateCompiler();
+            var parameters = new CompilerParameters { GenerateInMemory = true, GenerateExecutable = true, TreatWarningsAsErrors = false };
+            try
+            {
+                var results = codeProvider.CompileAssemblyFromSource(parameters, sourceJs);
+                if (results.Errors.HasErrors)
+                {
+                    Console.WriteLine("shit");
+                    foreach(var error in results.Errors)
+                    {
+                        Console.WriteLine(error.ToString());
+                    }
+                }
+                var assembly = results.CompiledAssembly;
+                Module module = results.CompiledAssembly.GetModules()[0];
+                dynamic instance = Activator.CreateInstance(assembly.GetType("TestCode.TestJs"));
+                var mt = module.GetType("TestCode.TestJs");
+
+                var prop = mt.GetField("externalVar");
+
+                //var mtt = TypedReference.MakeTypedReference(mt, new FieldInfo[1] { prop });
+
+                //prop.SetValue(mt, "Hello World, from CodeMan!");
+
+                
+            }
+            catch(Exception ex)
+            {
+
+            }
+
+
+
+            GenericHelp.DebugBox("JavaScript Tested...", true, ConsoleColor.Green);
+        }
+
     }
 }

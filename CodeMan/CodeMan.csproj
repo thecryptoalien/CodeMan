@@ -60,6 +60,9 @@
     <Content Include="TestCode\TestCsharp.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestCode\TestJavaScript.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestCode\TestVisualBasic.vb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

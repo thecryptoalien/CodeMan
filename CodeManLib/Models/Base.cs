@@ -42,10 +42,10 @@ namespace CodeManLib.Models
     /// </summary>
     public enum CodeType
     {
-        csharp, // C# - Fun times
+        csharp, // C# - Fun times - INPROGRESS
         cpp, // C++ - For more fun times
         c, // C - Cause I wanna feel even older
-        python, // Python - I guess I should have a 2 and a 3 lol
+        python, // Python - I guess I should have a 2 and a 3 lol - INPROGRESS
         perl, // Perl - Again I am old inside
         fortran, // Fortran - Well why not
         lisp, // Lisp - Cause Eric suggested it
@@ -53,7 +53,16 @@ namespace CodeManLib.Models
         java, // Java - Coffee sucks but I don't mind the code
         prolog, // Prolog - Eric says it's the best
         php, // Php - Casue I can, and I like it
-        matlab // MATLAB - A Bradman suggestion
+        matlab, // MATLAB - A Bradman suggestion
+        vb, // VisualBasic - Cause the compiler was there - INPROGRESS
+        js // JavaScript - Well, I guess... - STARTED
     }
 
+    ////////////////////////////////
+    ///  The Legend For Status   ///
+    ////////////////////////////////
+    /// STARTED - What it says   ///
+    /// INPROGRESS - Sample works///
+    /// DONE - Not sure if true  ///
+    ////////////////////////////////
 }
