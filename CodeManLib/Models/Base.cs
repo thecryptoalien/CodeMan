@@ -55,7 +55,7 @@ namespace CodeManLib.Models
         php, // Php - Casue I can, and I like it
         matlab, // MATLAB - A Bradman suggestion
         vb, // VisualBasic - Cause the compiler was there - INPROGRESS
-        js // JavaScript - Well, I guess... - STARTED
+        js // JavaScript - Well, I guess... - INPROGRESS
     }
 
     ////////////////////////////////

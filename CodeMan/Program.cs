@@ -56,7 +56,7 @@ namespace CodeMan
             Console.ReadKey();
         }    
         
-        // Test the python code yo
+        // Test the Python code yo
         public static void TestPython()
         {
             GenericHelp.DebugBox("Getting Python Sample", true, ConsoleColor.Blue);            
@@ -75,6 +75,7 @@ namespace CodeMan
             GenericHelp.DebugBox("Python Tested...",true, ConsoleColor.Green);
         }
 
+        // Test the C# code yo
         public static void TestCsharp()
         {
             GenericHelp.DebugBox("Getting C# Sample", true, ConsoleColor.Blue);
@@ -93,6 +94,7 @@ namespace CodeMan
             GenericHelp.DebugBox("C# Tested...", true, ConsoleColor.Green);
         }
 
+        // Test the VisualBasic code yo
         public static void TestVb()
         {
             GenericHelp.DebugBox("Getting VisualBasic Sample", true, ConsoleColor.Blue);
@@ -103,14 +105,15 @@ namespace CodeMan
             Code vBcode = new Code { Source = sourceVb };
             // use using to execute code
             GenericHelp.DebugBox("Executing VisualBasic Sample", true, ConsoleColor.Blue);
-            using (VbExecution exeCs = new VbExecution(vBcode))
+            using (VbExecution exeVb = new VbExecution(vBcode))
             {
                 // do the thing 
-                exeCs.ExecuteCode();
+                exeVb.ExecuteCode();
             }
             GenericHelp.DebugBox("VisualBasic Tested...", true, ConsoleColor.Green);
         }
 
+        // Test the JavaScript code yo
         public static void TestJs()
         {
             GenericHelp.DebugBox("Getting J(ava)Script Sample", true, ConsoleColor.Blue);
@@ -121,54 +124,11 @@ namespace CodeMan
             Code jScode = new Code { Source = sourceJs };
             // use using to execute code
             GenericHelp.DebugBox("Executing J(ava)Script Sample", true, ConsoleColor.Blue);
-            //using (VbExecution exeCs = new VbExecution(vBcode))
-            //{
-            //    // do the thing 
-            //    exeCs.ExecuteCode();
-            //}
-
-            // for testing
-            CodeDomProvider codeProvider = CodeDomProvider.CreateProvider("JavaScript");            
-            var parameters = new CompilerParameters { GenerateInMemory = true, GenerateExecutable = true, TreatWarningsAsErrors = false };
-            try
+            using (JsExecution exeJs = new JsExecution(jScode))
             {
-                var results = codeProvider.CompileAssemblyFromSource(parameters, jScode.Source);
-                if (results.Errors.HasErrors)
-                {
-                    foreach (var error in results.Errors)
-                    {
-                        GenericHelp.DebugBox(error.ToString(), false, ConsoleColor.Red);
-                    }
-                }
-                var assembly = results.CompiledAssembly;
-                dynamic instance = Activator.CreateInstance(assembly.GetType("TestCode.TestJs"));
-                instance.externalVar = "Hello World, from CodeMan!";
-                instance.Main();
-                instance.DoStuff("External Call to Function");
-
+                // do the thing 
+                exeJs.ExecuteCode();
             }
-            catch (Exception ex)
-            {
-                GenericHelp.DebugBox("\n" + ex.ToString(), true, ConsoleColor.Red);
-            }
-
-            //            string Source = @"
-            //package Test 
-            //{ 
-            //  class HelloWorld 
-            //  { 
-            //    function Hello(name) { return ""Hello, "" + name; }
-            //  }
-            //}";
-            //            var provider = new JScriptCodeProvider();
-            //            var compiler = provider.CreateCompiler();
-            //            var parameters = new CompilerParameters { GenerateInMemory = true };
-            //            var results = compiler.CompileAssemblyFromSource(parameters, Source);
-            //            var assembly = results.CompiledAssembly;
-            //            dynamic instance = Activator.CreateInstance(assembly.GetType("Test.HelloWorld"));
-            //            var result = instance.Hello("World");
-            //            Console.WriteLine("Result: {0}", result);
-
             GenericHelp.DebugBox("J(ava)Script Tested...", true, ConsoleColor.Green);
         }
 
