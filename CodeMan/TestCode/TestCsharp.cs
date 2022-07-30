@@ -14,7 +14,7 @@ namespace TestCode
         {
             Console.WriteLine("Hello World, from C#!");
             Console.WriteLine(externalVar);
-            DoStuff("Internal Call to method");
+            DoStuff("Internal Call to Method");
         }
 
         public static void DoStuff(string text)

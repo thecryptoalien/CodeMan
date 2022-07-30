@@ -30,6 +30,9 @@ namespace CodeMan
             GenericHelp.DebugBox("Testing C#...", true, ConsoleColor.Blue);
             TestCsharp();
 
+            // Added VisualBasic cause compiler available 
+            GenericHelp.DebugBox("Testing VisualBasic...", true, ConsoleColor.Blue);
+            TestVb();
             // why not c++ and c
 
             // got c++ done why not java with c++ wrapper lmao
@@ -82,6 +85,22 @@ namespace CodeMan
             GenericHelp.DebugBox("C# Tested...", true, ConsoleColor.Green);
         }
 
-        
+        public static void TestVb()
+        {
+            GenericHelp.DebugBox("Getting VisualBasic Sample", true, ConsoleColor.Blue);
+            string sourceVb = File.ReadAllText(@"TestCode\TestVisualBasic.vb");
+            GenericHelp.DebugBox("\n" + sourceVb, true, ConsoleColor.Green);
+            // init code object for testing
+            GenericHelp.DebugBox("Creating Code Object for test VisualBasic execution", false, ConsoleColor.Blue);
+            Code vBcode = new Code { Source = sourceVb };
+            // use using to execute code
+            GenericHelp.DebugBox("Executing VisualBasic Sample", true, ConsoleColor.Blue);
+            using (VbExecution exeCs = new VbExecution(vBcode))
+            {
+                // do the thing 
+                exeCs.ExecuteCode();
+            }
+            GenericHelp.DebugBox("VisualBasic Tested...", true, ConsoleColor.Green);
+        }
     }
 }
