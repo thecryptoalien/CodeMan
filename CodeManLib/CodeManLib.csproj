@@ -62,6 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\CodeDom.cs" />
+    <Compile Include="Helpers\Generic.cs" />
     <Compile Include="Models\Base.cs" />
     <Compile Include="Modules\CSharpExecution.cs" />
     <Compile Include="Modules\PythonExecution.cs" />
@@ -70,9 +72,7 @@
     <Compile Include="Modules\ReflectionTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

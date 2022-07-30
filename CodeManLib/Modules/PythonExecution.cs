@@ -1,4 +1,5 @@
-﻿using CodeManLib.Models;
+﻿using CodeManLib.Helpers;
+using CodeManLib.Models;
 using Microsoft.Scripting.Hosting;
 using System;
 using System.Collections.Generic;
@@ -61,15 +62,13 @@ namespace CodeManLib.Modules
             ops.CreateInstance(f, new object[1] { "External Call to Function" });
             //var __func__ = ops.GetMember(pythonScript, "doSomething"); // for class functions?? for reflection
 
-            Console.WriteLine();
-            Console.WriteLine("Variables in the scope:");
-            Console.WriteLine();
+            GenericHelp.DebugBox("Getting variables in the scope...", true, ConsoleColor.Blue);
 
             // get list of vars and loop for now
             var pyhtonVars = scope.GetItems();
             foreach (KeyValuePair<string, dynamic> keyPair in pyhtonVars)
             {
-                System.Console.Out.WriteLine(keyPair.Key + " : " + keyPair.Value);
+                GenericHelp.DebugBox("Key: " + keyPair.Key + " Value: " + keyPair.Value, false, ConsoleColor.Green);
             }
         }        
 

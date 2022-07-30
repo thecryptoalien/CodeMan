@@ -1,4 +1,5 @@
-﻿using CodeManLib.Models;
+﻿using CodeManLib.Helpers;
+using CodeManLib.Models;
 using System;
 using System.CodeDom.Compiler;
 using System.Reflection;
@@ -44,7 +45,7 @@ namespace CodeManLib.Modules
             CodeDomProvider codeProvider = CodeDomProvider.CreateProvider("CSharp");
 
 
-            Console.WriteLine("Compiling C# Sample");
+            GenericHelp.DebugBox("Compiling C# Sample", false, ConsoleColor.Blue);
             System.CodeDom.Compiler.CompilerParameters parameters = new CompilerParameters();
             parameters.GenerateExecutable = false;
             parameters.GenerateInMemory = true;
@@ -55,18 +56,15 @@ namespace CodeManLib.Modules
 
             if (results.Errors.Count > 0)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
                 foreach (CompilerError CompErr in results.Errors)
                 {
-                    Console.WriteLine("Line number " + CompErr.Line + ", Error Number: " + CompErr.ErrorNumber + ", '" + CompErr.ErrorText);
+                    GenericHelp.DebugBox("Line number " + CompErr.Line + ", Error Number: " + CompErr.ErrorNumber + ", '" + CompErr.ErrorText, false , ConsoleColor.Red);
                 }
-                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
                 // Successful Compile                
-                Console.WriteLine("Compilation Success!");                
-                Console.WriteLine();
+                GenericHelp.DebugBox("Compilation Success!", true, ConsoleColor.Green);
                 Module module = results.CompiledAssembly.GetModules()[0];
                 Type mt = null;
                 MethodInfo methInfo = null;
@@ -92,7 +90,7 @@ namespace CodeManLib.Modules
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine(ex.ToString());
+                            GenericHelp.DebugBox("\n" + ex.ToString(), true, ConsoleColor.Red);
                         }
                     }
 
@@ -110,11 +108,10 @@ namespace CodeManLib.Modules
                         }
                     }
 
-                    Console.WriteLine();
-                    Console.WriteLine("Declared Members");
+                    GenericHelp.DebugBox("Getting Declared Members", true, ConsoleColor.Blue);
                     foreach(var member in mt.GetMembers())
                     {
-                        Console.WriteLine(member.Name + " " + member.MemberType);
+                        GenericHelp.DebugBox("Name: " + member.Name + " Type: " + member.MemberType, false, ConsoleColor.Green);
                     }
 
 
