@@ -142,7 +142,7 @@ namespace CodeMan
                 }
                 var assembly = results.CompiledAssembly;
                 dynamic instance = Activator.CreateInstance(assembly.GetType("TestCode.TestJs"));
-                instance.setVar("Hello World, from CodeMan!");
+                instance.externalVar = "Hello World, from CodeMan!";
                 instance.Main();
                 instance.DoStuff("External Call to Function");
 

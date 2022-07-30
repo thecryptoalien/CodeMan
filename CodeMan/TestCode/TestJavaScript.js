@@ -6,10 +6,9 @@ package TestCode
     class TestJs
     {        
         var externalVar;
-        function setVar(msg) { externalVar = msg; }
-        
+    
         function Main() {
-            System.Console.WriteLine("Hello World, from JavaScript");
+            System.Console.WriteLine("Hello World, from JavaScript!");
             System.Console.WriteLine(externalVar);
             DoStuff("Internal Call to Function");
         }
