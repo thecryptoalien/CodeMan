@@ -1,15 +1,22 @@
-﻿package TestCode
+﻿// Test JScript source code
+import System;
+
+package TestCode
 {
     class TestJs
-    {
-        var externalVar = "stuff";
-        var WshShell = new ActiveXObject("WScript.Shell");
-        //console.log("Hello World, from JavaScript");
-        //console.log(externalVar);
+    {        
+        var externalVar;
+        function setVar(msg) { externalVar = msg; }
+        
         function Main() {
-            WshShell.WriteLine("Hello World, from JavaScript");
-            DoStuff("Call")
+            System.Console.WriteLine("Hello World, from JavaScript");
+            System.Console.WriteLine(externalVar);
+            DoStuff("Internal Call to Function");
         }
-        function DoStuff(name) { WshShell.WriteLine(name); }
+
+        function DoStuff(name) { 
+            System.Console.WriteLine(name);
+        }
     }
+
 }

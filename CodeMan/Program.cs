@@ -38,7 +38,7 @@ namespace CodeMan
             TestVb();
 
             // Added JavaScript cause compiler available 
-            GenericHelp.DebugBox("Testing JavaScript...", true, ConsoleColor.Blue);
+            GenericHelp.DebugBox("Testing J(ava)Script...", true, ConsoleColor.Blue);
             TestJs();
 
             // why not c++ and c
@@ -113,14 +113,14 @@ namespace CodeMan
 
         public static void TestJs()
         {
-            GenericHelp.DebugBox("Getting JavaScript Sample", true, ConsoleColor.Blue);
+            GenericHelp.DebugBox("Getting J(ava)Script Sample", true, ConsoleColor.Blue);
             string sourceJs = File.ReadAllText(@"TestCode\TestJavaScript.js");
             GenericHelp.DebugBox("\n" + sourceJs, true, ConsoleColor.Green);
-            //// init code object for testing
-            //GenericHelp.DebugBox("Creating Code Object for test VisualBasic execution", false, ConsoleColor.Blue);
-            //Code vBcode = new Code { Source = sourceVb };
-            //// use using to execute code
-            //GenericHelp.DebugBox("Executing VisualBasic Sample", true, ConsoleColor.Blue);
+            // init code object for testing
+            GenericHelp.DebugBox("Creating Code Object for test J(ava)Script execution", false, ConsoleColor.Blue);
+            Code jScode = new Code { Source = sourceJs };
+            // use using to execute code
+            GenericHelp.DebugBox("Executing J(ava)Script Sample", true, ConsoleColor.Blue);
             //using (VbExecution exeCs = new VbExecution(vBcode))
             //{
             //    // do the thing 
@@ -128,41 +128,48 @@ namespace CodeMan
             //}
 
             // for testing
-            CodeDomProvider codeProvider = CodeDomProvider.CreateProvider("JavaScript");
-            //var codeCompiler = codeProvider.CreateCompiler();
+            CodeDomProvider codeProvider = CodeDomProvider.CreateProvider("JavaScript");            
             var parameters = new CompilerParameters { GenerateInMemory = true, GenerateExecutable = true, TreatWarningsAsErrors = false };
             try
             {
-                var results = codeProvider.CompileAssemblyFromSource(parameters, sourceJs);
+                var results = codeProvider.CompileAssemblyFromSource(parameters, jScode.Source);
                 if (results.Errors.HasErrors)
                 {
-                    Console.WriteLine("shit");
-                    foreach(var error in results.Errors)
+                    foreach (var error in results.Errors)
                     {
-                        Console.WriteLine(error.ToString());
+                        GenericHelp.DebugBox(error.ToString(), false, ConsoleColor.Red);
                     }
                 }
                 var assembly = results.CompiledAssembly;
-                Module module = results.CompiledAssembly.GetModules()[0];
                 dynamic instance = Activator.CreateInstance(assembly.GetType("TestCode.TestJs"));
-                var mt = module.GetType("TestCode.TestJs");
+                instance.setVar("Hello World, from CodeMan!");
+                instance.Main();
+                instance.DoStuff("External Call to Function");
 
-                var prop = mt.GetField("externalVar");
-
-                //var mtt = TypedReference.MakeTypedReference(mt, new FieldInfo[1] { prop });
-
-                //prop.SetValue(mt, "Hello World, from CodeMan!");
-
-                
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-
+                GenericHelp.DebugBox("\n" + ex.ToString(), true, ConsoleColor.Red);
             }
 
+            //            string Source = @"
+            //package Test 
+            //{ 
+            //  class HelloWorld 
+            //  { 
+            //    function Hello(name) { return ""Hello, "" + name; }
+            //  }
+            //}";
+            //            var provider = new JScriptCodeProvider();
+            //            var compiler = provider.CreateCompiler();
+            //            var parameters = new CompilerParameters { GenerateInMemory = true };
+            //            var results = compiler.CompileAssemblyFromSource(parameters, Source);
+            //            var assembly = results.CompiledAssembly;
+            //            dynamic instance = Activator.CreateInstance(assembly.GetType("Test.HelloWorld"));
+            //            var result = instance.Hello("World");
+            //            Console.WriteLine("Result: {0}", result);
 
-
-            GenericHelp.DebugBox("JavaScript Tested...", true, ConsoleColor.Green);
+            GenericHelp.DebugBox("J(ava)Script Tested...", true, ConsoleColor.Green);
         }
 
     }
