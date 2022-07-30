@@ -1,4 +1,5 @@
-﻿Imports System
+﻿'Test VisualBasic source code 
+Imports System
 
 Module TestVb
     Public externalVar As String = ""

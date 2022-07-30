@@ -54,6 +54,7 @@ namespace CodeManLib.Modules
             scope.SetVariable("externalString", "Hello World, from CodeMan!");
 
             // execute script
+            GenericHelp.DebugBox("Executing Python Sample", true, ConsoleColor.Blue);
             pythonScript.Execute(scope);
 
             // get function from scope
@@ -62,7 +63,8 @@ namespace CodeManLib.Modules
             ops.CreateInstance(f, new object[1] { "External Call to Function" });
             //var __func__ = ops.GetMember(pythonScript, "doSomething"); // for class functions?? for reflection
 
-            GenericHelp.DebugBox("Getting variables in the scope...", true, ConsoleColor.Blue);
+            GenericHelp.DebugBox(null, false, null);
+            GenericHelp.DebugBox("Getting variables in the scope...", false, ConsoleColor.Blue);
 
             // get list of vars and loop for now
             var pyhtonVars = scope.GetItems();

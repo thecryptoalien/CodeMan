@@ -4,6 +4,7 @@ using CodeManLib.Modules;
 using Microsoft.JScript;
 using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
@@ -11,36 +12,47 @@ namespace CodeMan
 {
     class Program
     {
+        // List of "WorkingLanguages" -> all possible in order of done and desire lol (not all lister yet)
+        private static List<string> WorkingLanguages = new List<string>() { "Python", "CSharp", "VisualBasic", "JavaScript", "cpp", "C", "Java", "Php" }; 
         static void Main(string[] args)
         {
             // Start the thing
             GenericHelp.DebugBox("Main Program Started...", true, ConsoleColor.Green);
 
             // check for available compilers
-            GenericHelp.DebugBox("Checking for available CodeDom providers", true, ConsoleColor.Blue);
-            CodeDomHelp.CheckForProvider("CSharp");
-            CodeDomHelp.CheckForProvider("VisualBasic");
-            //CodeDomHelp.CheckForProvider("FSharp"); // having troubles
-            CodeDomHelp.CheckForProvider("cpp");
-            CodeDomHelp.CheckForProvider("JavaScript");
+            GenericHelp.DebugBox("Checking for available CodeDom/External Providers", true, ConsoleColor.Blue);
+            
+            //CodeDomHelp.CheckForProvider("FSharp"); // having troubles lol
 
-
-            // im crazy but maybe I will start with python
-            GenericHelp.DebugBox("Testing Python...", true, ConsoleColor.Blue);
-            TestPython();
-
-            // C# is next very integral to make some stuff work going forward
-            GenericHelp.DebugBox("Testing C#...", true, ConsoleColor.Blue);
-            TestCsharp();
-
-            // Added VisualBasic cause compiler available 
-            GenericHelp.DebugBox("Testing VisualBasic...", true, ConsoleColor.Blue);
-            TestVb();
-
-            // Added JavaScript cause compiler available 
-            GenericHelp.DebugBox("Testing J(ava)Script...", true, ConsoleColor.Blue);
-            TestJs();
-
+            // Check for provider and Test Samples for working languages
+            foreach (string language in WorkingLanguages)
+            {
+                // check for provider
+                if (CodeDomHelp.CheckForProvider(language))
+                {
+                    // provider exists test it mon
+                    GenericHelp.DebugBox("Testing " + language + "...", false, ConsoleColor.Blue);
+                    switch (language)
+                    {
+                        case "Python":
+                            TestPython();
+                            break;
+                        case "CSharp":
+                            TestCsharp();
+                            break;
+                        case "VisualBasic":
+                            TestVb();
+                            break;
+                        case "JavaScript":
+                            TestJs();
+                            break;
+                        default:
+                            GenericHelp.DebugBox("No Test available for " + language + " yet...", true, ConsoleColor.Red);
+                            break;
+                    }
+                }
+            }
+            
             // why not c++ and c
 
             // got c++ done why not java with c++ wrapper lmao
@@ -65,8 +77,7 @@ namespace CodeMan
             // init code object for testing
             GenericHelp.DebugBox("Creating Code Object for test Python execution", false, ConsoleColor.Blue);
             Code pyCode = new Code { Source = sourcePy };
-            // use using to execute code
-            GenericHelp.DebugBox("Executing Python Sample", true, ConsoleColor.Blue);
+            // use using to execute code            
             using (PythonExecution exePy = new PythonExecution(pyCode))
             {
                 // do the thing 
@@ -85,7 +96,6 @@ namespace CodeMan
             GenericHelp.DebugBox("Creating Code Object for test C# execution", false, ConsoleColor.Blue);
             Code cScode = new Code { Source = sourceCs };
             // use using to execute code
-            GenericHelp.DebugBox("Executing C# Sample", true, ConsoleColor.Blue);
             using (CSharpExecution exeCs = new CSharpExecution(cScode))
             {
                 // do the thing 
@@ -104,7 +114,6 @@ namespace CodeMan
             GenericHelp.DebugBox("Creating Code Object for test VisualBasic execution", false, ConsoleColor.Blue);
             Code vBcode = new Code { Source = sourceVb };
             // use using to execute code
-            GenericHelp.DebugBox("Executing VisualBasic Sample", true, ConsoleColor.Blue);
             using (VbExecution exeVb = new VbExecution(vBcode))
             {
                 // do the thing 
@@ -123,7 +132,6 @@ namespace CodeMan
             GenericHelp.DebugBox("Creating Code Object for test J(ava)Script execution", false, ConsoleColor.Blue);
             Code jScode = new Code { Source = sourceJs };
             // use using to execute code
-            GenericHelp.DebugBox("Executing J(ava)Script Sample", true, ConsoleColor.Blue);
             using (JsExecution exeJs = new JsExecution(jScode))
             {
                 // do the thing 

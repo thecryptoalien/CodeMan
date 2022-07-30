@@ -21,6 +21,14 @@ namespace CodeManLib.Helpers
                 // set it
                 Console.ForegroundColor = (ConsoleColor)consoleColor;
             }
+            // check dBugMsg for null or empty
+            if (String.IsNullOrEmpty(dBugMsg))
+            {
+                // set back to default
+                Console.ForegroundColor = ConsoleColor.White;
+                dBugMsg = "-------------------------------------------------------------------------------";
+            }
+            // write message
             Console.WriteLine(dBugMsg);
             // check nelLine
             if (newLine)

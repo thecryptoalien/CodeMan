@@ -8,11 +8,11 @@ namespace CodeManLib.Helpers
     /// </summary>
     public class CodeDomHelp
     {
-        public static void CheckForProvider(string language)
+        public static bool CheckForProvider(string language)
         {
             // Init code dom provider
             CodeDomProvider provider;
-            GenericHelp.DebugBox("Checking If CodeDom provider exists for " + language, false, ConsoleColor.Blue);
+            GenericHelp.DebugBox("Checking If CodeDom/External Provider exists for " + language, false, ConsoleColor.Blue);
 
             // Check to see if It exists
             if (CodeDomProvider.IsDefinedLanguage(language))
@@ -24,11 +24,24 @@ namespace CodeManLib.Helpers
                 GenericHelp.DebugBox("CodeDom Provider found!", false, ConsoleColor.Green);
                 GenericHelp.DebugBox("Language provider: " + provider.ToString(), false, ConsoleColor.Green);
                 GenericHelp.DebugBox("Default file extension: " + provider.FileExtension, true, ConsoleColor.Green);
+                return true;
             }
             else
             {
-                // No CodeDom provider found
-                GenericHelp.DebugBox("There is no provider configured for " + language, true, ConsoleColor.Red);
+                // No CodeDom provider found check for non CodeDom working language 
+                switch (language)
+                {
+                    case "Python":
+                        GenericHelp.DebugBox("External Provider found!", false, ConsoleColor.Green);
+                        GenericHelp.DebugBox("Language provider: IronPython", false, ConsoleColor.Green); // get ver of python later
+                        GenericHelp.DebugBox("Default file extension: py", true, ConsoleColor.Green);
+                        return true;
+                    default:
+                        GenericHelp.DebugBox("There is no provider configured for " + language, true, ConsoleColor.Red);
+                        return false;
+                }
+
+                
             }
         }
     }

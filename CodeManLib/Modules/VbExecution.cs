@@ -81,6 +81,8 @@ namespace CodeManLib.Modules
                     var feild = mt.GetField("externalVar");
                     feild.SetValue(mt, "Hello World, from CodeMan!");
 
+                    // execute sample
+                    GenericHelp.DebugBox("Executing VisualBasic Sample", true, ConsoleColor.Blue);
                     methInfo = mt.GetMethod("Main", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
                     if (methInfo != null)
                     {
@@ -108,7 +110,8 @@ namespace CodeManLib.Modules
                         }
                     }
 
-                    GenericHelp.DebugBox("Getting Declared Members", true, ConsoleColor.Blue);
+                    GenericHelp.DebugBox(null, false, null);
+                    GenericHelp.DebugBox("Getting Declared Members", false, ConsoleColor.Blue);
                     foreach (var member in mt.GetMembers())
                     {
                         GenericHelp.DebugBox("Name: " + member.Name + " Type: " + member.MemberType, false, ConsoleColor.Green);

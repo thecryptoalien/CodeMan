@@ -64,6 +64,7 @@ namespace CodeManLib.Modules
                     Type mt = null;
 
                     // Make instance of class and execute
+                    GenericHelp.DebugBox("Executing J(ava)Script Sample", true, ConsoleColor.Blue);
                     dynamic instance = Activator.CreateInstance(assembly.GetType("TestCode.TestJs"));
                     instance.externalVar = "Hello World, from CodeMan!";
                     instance.Main();
@@ -77,7 +78,8 @@ namespace CodeManLib.Modules
                     if (mt != null)
                     {
                         // Get members and display
-                        GenericHelp.DebugBox("Getting Declared Members", true, ConsoleColor.Blue);
+                        GenericHelp.DebugBox(null, false, null);
+                        GenericHelp.DebugBox("Getting Declared Members", false, ConsoleColor.Blue);
                         foreach (var member in mt.GetMembers())
                         {
                             GenericHelp.DebugBox("Name: " + member.Name + " Type: " + member.MemberType, false, ConsoleColor.Green);
