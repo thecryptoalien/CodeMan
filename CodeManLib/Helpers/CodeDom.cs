@@ -17,12 +17,24 @@ namespace CodeManLib.Helpers
             // Check to see if It exists
             if (CodeDomProvider.IsDefinedLanguage(language))
             {
+                // check for hybrid languages
+                string extPro = string.Empty;
+                string extComp = string.Empty;
+                switch (language)
+                {
+                    case "cpp":
+                        extPro = "/External";
+                        extComp = "/MSCV"; 
+                        break;
+                }
+
+
                 // Create the CodeDom provider
                 provider = CodeDomProvider.CreateProvider(language);
 
                 // Display stuff about the language provider.
-                GenericHelp.DebugBox("CodeDom Provider found!", false, ConsoleColor.Green);
-                GenericHelp.DebugBox("Language provider: " + provider.ToString(), false, ConsoleColor.Green);
+                GenericHelp.DebugBox("CodeDom" + extPro + " Provider found!", false, ConsoleColor.Green);
+                GenericHelp.DebugBox("Language provider: " + provider.ToString() + extComp, false, ConsoleColor.Green);
                 GenericHelp.DebugBox("Default file extension: " + provider.FileExtension, true, ConsoleColor.Green);
                 return true;
             }
