@@ -201,7 +201,8 @@ namespace CodeMan
                 // Successful Compile                
                 GenericHelp.DebugBox("Compilation Success!", true, ConsoleColor.Green);
 
-                Assembly SampleAssembly = Assembly.LoadFrom("Temp\\TempCpp.dll");
+                var assemblyBytes = System.IO.File.ReadAllBytes("Temp\\TempCpp.dll");
+                Assembly SampleAssembly = Assembly.Load(assemblyBytes);
                 Module module = SampleAssembly.GetModules()[0];                
 
                 var runtimeType = module.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
@@ -221,17 +222,21 @@ namespace CodeMan
                 var doStuff = runtimeType.Where(mi => mi.Name == "doStuff").FirstOrDefault();  
                 doStuff.Invoke(null, new object[] { "External Call to Function" });
 
-                 
+
                 // need to check a lil into reflection for c++
                 //var types = module.GetType("Module");             
 
-
+                // remove temp files                
+                File.Delete("Temp\\TempCpp.cpp");
+                File.Delete("Temp\\TempCpp.dll");
             }
             else
             {
                 // compilation error
                 GenericHelp.DebugBox("C++ Compilation ERROR!", false, ConsoleColor.Red);
             }
+
+            
 
 
             GenericHelp.DebugBox(null, false, null);

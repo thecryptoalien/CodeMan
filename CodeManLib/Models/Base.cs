@@ -43,7 +43,7 @@ namespace CodeManLib.Models
     public enum CodeType
     {
         csharp, // C# - Fun times - INPROGRESS
-        cpp, // C++ - For more fun times
+        cpp, // C++ - For more fun times - STARTED
         c, // C - Cause I wanna feel even older
         python, // Python - I guess I should have a 2 and a 3 lol - INPROGRESS
         perl, // Perl - Again I am old inside
