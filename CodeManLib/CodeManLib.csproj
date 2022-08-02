@@ -65,6 +65,7 @@
     <Compile Include="Helpers\CodeDom.cs" />
     <Compile Include="Helpers\Generic.cs" />
     <Compile Include="Models\Base.cs" />
+    <Compile Include="Modules\CppExecution.cs" />
     <Compile Include="Modules\JsExecution.cs" />
     <Compile Include="Modules\VbExecution.cs" />
     <Compile Include="Modules\CSharpExecution.cs" />

@@ -1,29 +1,35 @@
-﻿#include <iostream>
-#include <string>
+﻿// Test C++ source code
+#include <iostream>
 
-using namespace std;
-using namespace System;
-using namespace System::Runtime::InteropServices;
+namespace TestCode {
+	public ref class TestCpp {
+	public: const char* externalVar;
 
-const char* externalVar;
+		  const char* getStr(System::String^ strng) {
+			  System::IntPtr ip = System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(strng);
+			  return static_cast<const char*>(ip.ToPointer());
+		  }
 
-const char* getStr(String^ strng) {
-    IntPtr ip = Marshal::StringToHGlobalAnsi(strng);
-    return static_cast<const char*>(ip.ToPointer());
-}
+	public: void setVar(System::String^ text) {
+		externalVar = TestCpp::getStr(text);
+	}
 
-void setVar(String^ text) {
-    externalVar = getStr(text);
-}
+	public: void doStuff(System::String^ msg) {
+		std::cout << TestCpp::getStr(msg) << std::endl;
+	}
 
-void doStuff(String^ msg) {
-    cout << getStr(msg) << endl;
+	public: int Main() {
+		std::cout << "Hello World, from C++!" << std::endl;
+		std::cout << externalVar << std::endl;
+		TestCpp::doStuff("Internal Call to Method");
+		return 0;
+	}
+
+	};
 }
 
 int main() {
-    cout << "Hello World, from C++!" << endl;
-    cout << externalVar << endl;
-    doStuff("Internal Call to Function");
-    return 0;
+	TestCode::TestCpp test;
+	return test.Main();	
 }
 

@@ -149,7 +149,6 @@ namespace CodeMan
             GenericHelp.DebugBox("J(ava)Script Tested...", true, ConsoleColor.Green);
         }
 
-
         // Test the C++ code yo
         public static void TestCpp()
         {
@@ -159,87 +158,12 @@ namespace CodeMan
             // init code object for testing
             GenericHelp.DebugBox("Creating Code Object for test C++ execution", false, ConsoleColor.Blue);
             Code cpPcode = new Code { Source = sourceCpp };
-            //// use using to execute code
-            //using (JsExecution exeJs = new JsExecution(cpPcode))
-            //{
-            //    // do the thing 
-            //    exeJs.ExecuteCode();
-            //}
-
-            /// for test man
-            // compile the code and test it 
-            GenericHelp.DebugBox("Compiling C++ Sample", false, ConsoleColor.Blue);
-            Console.ForegroundColor = ConsoleColor.Yellow;
-
-            // write out temp source
-            File.WriteAllText("Temp\\TempCpp.cpp", cpPcode.Source);
-            var prgDir = System.IO.Directory.GetCurrentDirectory();
-
-            // has to do shiz cause microsoft
-            var start = new ProcessStartInfo();
-
-            start.FileName = @"cmd.exe";
-            start.Arguments = @"/C "+ CppCompilerDir + @"\vcvars64.bat && cl /clr:pure " + prgDir + @"\Temp\TempCpp.cpp /o " + prgDir + @"\Temp\TempCpp.dll";
-
-            start.UseShellExecute = false;
-            start.RedirectStandardOutput = true;
-
-            using (var process = Process.Start(start))
+            // use using to execute code
+            using (CppExecution exeCpp = new CppExecution(cpPcode, CppCompilerDir))
             {
-                // Could be useful to eventually track error
-                using (var reader = process?.StandardOutput)
-                {
-                    Console.WriteLine(reader?.ReadToEnd());
-                }
+                // do the thing 
+                exeCpp.ExecuteCode();
             }
-            
-            GenericHelp.DebugBox(null, false, null);
-            
-            // check if new dll exists            
-            if (File.Exists("Temp\\TempCpp.dll"))
-            {
-                // Successful Compile                
-                GenericHelp.DebugBox("Compilation Success!", true, ConsoleColor.Green);
-
-                var assemblyBytes = System.IO.File.ReadAllBytes("Temp\\TempCpp.dll");
-                Assembly SampleAssembly = Assembly.Load(assemblyBytes);
-                Module module = SampleAssembly.GetModules()[0];                
-
-                var runtimeType = module.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
-                var runtimeFields = module.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
-
-                GenericHelp.DebugBox("Executing C++ Sample", true, ConsoleColor.Blue);
-
-                // set var from here
-                var setVar = runtimeType.Where(mi => mi.Name == "setVar").FirstOrDefault();
-                setVar.Invoke(null, new object [] { "Hello World, From CodeMan!" });
-
-                // execute main method
-                var mainMethod = runtimeType.Where(mi => mi.Name == "main").FirstOrDefault();
-                mainMethod.Invoke(null, null);
-
-                // execute doStuff 
-                var doStuff = runtimeType.Where(mi => mi.Name == "doStuff").FirstOrDefault();  
-                doStuff.Invoke(null, new object[] { "External Call to Function" });
-
-
-                // need to check a lil into reflection for c++
-                //var types = module.GetType("Module");             
-
-                // remove temp files                
-                File.Delete("Temp\\TempCpp.cpp");
-                File.Delete("Temp\\TempCpp.dll");
-            }
-            else
-            {
-                // compilation error
-                GenericHelp.DebugBox("C++ Compilation ERROR!", false, ConsoleColor.Red);
-            }
-
-            
-
-
-            GenericHelp.DebugBox(null, false, null);
             GenericHelp.DebugBox("C++ Tested...", true, ConsoleColor.Green);
         }
 
